@@ -5,9 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gabi18</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-family: system-ui, sans-serif;
+      background: #f8f8f8;
+    }
+  </style>
 </head>
 <body>
-  <h1>Gabi-18</h1>
-  <p>This is a static homepage.</p>
+  <div id="backgroundWrapper" style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; background-image: url('gabivolution.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div style="width: 100%;">
+      <h1><img src="gabi18animated.svg" alt="gabi18animated" style="width: auto; height: auto; display: block; margin: 0 auto; transform: scale(2); transform-origin: center;"></h1>
+      <button id="playVideoButton" style="margin: 1.5rem auto; padding: 0.9rem 1.6rem; font-size: 1rem; cursor: pointer; border: none; border-radius: 0.5rem; background: #1e88e5; color: white;">Play the video</button>
+      <div id="videoContainer" style="max-width: 90vw; width: 900px; margin: 0 auto; display: none; text-align: center;">
+      <iframe id="videoIframe" src="https://player.vimeo.com/video/1215579013?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" style="width: 90%; height: auto; aspect-ratio: 16 / 9; max-height: 90vh;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="Gabi turns 18"></iframe>
+    </div>
+  </div>
+  <script>
+    const button = document.getElementById('playVideoButton');
+    const container = document.getElementById('videoContainer');
+    const iframe = document.getElementById('videoIframe');
+
+    button.addEventListener('click', async () => {
+      const url = new URL(iframe.src);
+      url.searchParams.set('autoplay', '1');
+      iframe.src = url.toString();
+      container.style.display = 'block';
+      button.style.display = 'none';
+
+      try {
+        if (container.requestFullscreen) {
+          await container.requestFullscreen();
+        } else if (iframe.requestFullscreen) {
+          await iframe.requestFullscreen();
+        }
+      } catch (error) {
+        console.warn('Fullscreen request failed:', error);
+      }
+    });
+  </script>
 </body>
 </html>

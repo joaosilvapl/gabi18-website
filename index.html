@@ -24,7 +24,36 @@
   <div id="backgroundWrapper" style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; background-image: url('gabivolution.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
     <div style="width: 100%;">
       <h1><img src="gabi18animated.svg" alt="gabi18animated" style="width: auto; height: auto; display: block; margin: 0 auto; transform: scale(2); transform-origin: center;"></h1>
-      <button id="playVideoButton" style="margin: 1.5rem auto; padding: 0.9rem 1.6rem; font-size: 1rem; cursor: pointer; border: none; border-radius: 0.5rem; background: #1e88e5; color: white;">Play the video</button>
+      <div id="buttonGroup" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 1.5rem auto;">
+        <button id="nicknameHistoryButton" style="padding: 0.9rem 1.2rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 0.75rem; font-weight: 600; cursor: pointer; min-width: 120px;">Nickname history</button>
+        <button id="drawingsHistoryButton" style="padding: 0.9rem 1.2rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 0.75rem; font-weight: 600; cursor: pointer; min-width: 120px;">Drawings history</button>
+        <button id="playVideoButton" style="padding: 0.9rem 1.2rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 0.75rem; font-weight: 600; cursor: pointer; min-width: 120px;">Play the video</button>
+      </div>
+      <div id="nicknameOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center;">
+        <div style="display: inline-block; max-width: calc(100vw - 2rem); min-width: 18rem; background: white; border-radius: 1rem; padding: 2rem; position: relative; text-align: left; color: #111; box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
+          <button id="closeNicknameOverlay" style="position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: #555;">✕</button>
+          <h2 style="margin-top: 0; color: #1e88e5;">Nickname history</h2>
+          <ul style="margin: 1rem 0 0; padding-left: 1.3rem; line-height: 1.8;">
+            <li>Gabrysia</li>
+            <li>Żaba</li>
+            <li>Kika</li>
+            <li>Gaba</li>
+            <li>Dzik</li>
+            <li>Bebezinha</li>
+          </ul>
+        </div>
+      </div>
+      <div id="drawingOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9998; align-items: center; justify-content: center;">
+        <div style="width: 70vw; max-width: calc(100vw - 2rem); background: white; border-radius: 1rem; padding: 1.5rem; position: relative; color: #111; box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
+          <button id="closeDrawingOverlay" style="position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: #555;">✕</button>
+          <h2 style="margin-top: 0; color: #1e88e5;">Drawings history</h2>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+            <button id="prevDrawing" style="width: 2.75rem; min-width: 2.75rem; height: 2.75rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 50%; font-size: 1.5rem; cursor: pointer;">‹</button>
+            <img id="centerImage" src="" alt="Current drawing" style="width: 80%; max-height: 70vh; object-fit: contain; border-radius: 1rem; border: 2px solid #1e88e5;">
+            <button id="nextDrawing" style="width: 2.75rem; min-width: 2.75rem; height: 2.75rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 50%; font-size: 1.5rem; cursor: pointer;">›</button>
+          </div>
+        </div>
+      </div>
       <div id="videoContainer" style="max-width: 90vw; width: 900px; margin: 0 auto; display: none; text-align: center;">
       <iframe id="videoIframe" src="https://player.vimeo.com/video/1216499641?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" style="width: 90%; height: auto; aspect-ratio: 16 / 9; max-height: 90vh;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="Gabi turns 18"></iframe>
     </div>
@@ -33,6 +62,37 @@
     const button = document.getElementById('playVideoButton');
     const container = document.getElementById('videoContainer');
     const iframe = document.getElementById('videoIframe');
+    const nicknameHistoryButton = document.getElementById('nicknameHistoryButton');
+    const nicknameOverlay = document.getElementById('nicknameOverlay');
+    const closeNicknameOverlay = document.getElementById('closeNicknameOverlay');
+    const drawingsHistoryButton = document.getElementById('drawingsHistoryButton');
+    const drawingOverlay = document.getElementById('drawingOverlay');
+    const closeDrawingOverlay = document.getElementById('closeDrawingOverlay');
+    const prevDrawing = document.getElementById('prevDrawing');
+    const nextDrawing = document.getElementById('nextDrawing');
+    const leftImage = document.getElementById('leftImage');
+    const centerImage = document.getElementById('centerImage');
+    const rightImage = document.getElementById('rightImage');
+
+    const drawings = [
+      'drawings/2012 faces.JPG',
+      'drawings/2013 fish.JPG',
+      'drawings/2013 tatu bola.JPG',
+      'drawings/2014 carta papai noel.JPG',
+      'drawings/2015 cartoon.JPG',
+      'drawings/2016 dr rozumek.JPG',
+      'drawings/2016 whole family.jpg',
+      'drawings/2017 animals.jpeg',
+      'drawings/2018 quidditch.jpg',
+      'drawings/2019 eye.jpg',
+      'drawings/2019 owl.jpg',
+      'drawings/2019 pałac nad wodą.jpg'
+    ].sort((a, b) => a.localeCompare(b, 'pl', { sensitivity: 'base' }));
+    let currentIndex = 0;
+
+    function updateCarousel() {
+      centerImage.src = drawings[currentIndex];
+    }
 
     button.addEventListener('click', async () => {
       const url = new URL(iframe.src);
@@ -49,6 +109,45 @@
         }
       } catch (error) {
         console.warn('Fullscreen request failed:', error);
+      }
+    });
+
+    nicknameHistoryButton.addEventListener('click', () => {
+      nicknameOverlay.style.display = 'flex';
+    });
+
+    drawingsHistoryButton.addEventListener('click', () => {
+      drawingOverlay.style.display = 'flex';
+      updateCarousel();
+    });
+
+    prevDrawing.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + drawings.length) % drawings.length;
+      updateCarousel();
+    });
+
+    nextDrawing.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % drawings.length;
+      updateCarousel();
+    });
+
+    closeNicknameOverlay.addEventListener('click', () => {
+      nicknameOverlay.style.display = 'none';
+    });
+
+    closeDrawingOverlay.addEventListener('click', () => {
+      drawingOverlay.style.display = 'none';
+    });
+
+    nicknameOverlay.addEventListener('click', (event) => {
+      if (event.target === nicknameOverlay) {
+        nicknameOverlay.style.display = 'none';
+      }
+    });
+
+    drawingOverlay.addEventListener('click', (event) => {
+      if (event.target === drawingOverlay) {
+        drawingOverlay.style.display = 'none';
       }
     });
   </script>

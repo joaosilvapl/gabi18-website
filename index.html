@@ -26,7 +26,7 @@
       <h1><img src="gabi18animated.svg" alt="gabi18animated" style="width: auto; height: auto; display: block; margin: 0 auto; transform: scale(2); transform-origin: center;"></h1>
       <div id="buttonGroup" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 1.5rem auto;">
         <button id="nicknameHistoryButton" style="padding: 0.9rem 1.2rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 0.75rem; font-weight: 600; cursor: pointer; min-width: 120px;">Nickname history</button>
-        <button id="drawingsHistoryButton" style="padding: 0.9rem 1.2rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 0.75rem; font-weight: 600; cursor: pointer; min-width: 120px;">Drawings history</button>
+        <button id="drawingsHistoryButton" style="padding: 0.9rem 1.2rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 0.75rem; font-weight: 600; cursor: pointer; min-width: 120px;">Drawing history</button>
         <button id="playVideoButton" style="padding: 0.9rem 1.2rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 0.75rem; font-weight: 600; cursor: pointer; min-width: 120px;">Play the video</button>
       </div>
       <div id="nicknameOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center;">
@@ -46,7 +46,7 @@
       <div id="drawingOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9998; align-items: center; justify-content: center;">
         <div style="width: 70vw; max-width: calc(100vw - 2rem); background: white; border-radius: 1rem; padding: 1.5rem; position: relative; color: #111; box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
           <button id="closeDrawingOverlay" style="position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: #555;">✕</button>
-          <h2 style="margin-top: 0; color: #1e88e5;">Drawings history</h2>
+          <h2 style="margin-top: 0; color: #1e88e5;">Drawing history</h2>
           <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
             <button id="prevDrawing" style="width: 2.75rem; min-width: 2.75rem; height: 2.75rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 50%; font-size: 1.5rem; cursor: pointer;">‹</button>
             <img id="centerImage" src="" alt="Current drawing" style="width: 80%; max-height: 70vh; object-fit: contain; border-radius: 1rem; border: 2px solid #1e88e5;">
@@ -54,7 +54,18 @@
           </div>
         </div>
       </div>
-      <div id="videoContainer" style="max-width: 90vw; width: 900px; margin: 0 auto; display: none; text-align: center;">
+      <div id="videoOptionsOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center;">
+        <div style="display: inline-block; background: white; border-radius: 1rem; padding: 2rem; min-width: 20rem; max-width: calc(100vw - 2rem); text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.25);">
+          <h2 style="margin-top: 0; color: #1e88e5;">Choose language</h2>
+          <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+            <button class="videoLanguageButton" data-src="https://player.vimeo.com/video/1216710818" style="padding: 1rem 1.4rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 0.75rem; font-weight: 600; cursor: pointer; min-width: 140px; font-size: 1.1rem;">🇧🇷 Português</button>
+            <button class="videoLanguageButton" data-src="https://player.vimeo.com/video/1216710835" style="padding: 1rem 1.4rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 0.75rem; font-weight: 600; cursor: pointer; min-width: 140px; font-size: 1.1rem;">🇵🇱 Polski</button>
+            <button class="videoLanguageButton" data-src="https://player.vimeo.com/video/1216499641" style="padding: 1rem 1.4rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 0.75rem; font-weight: 600; cursor: pointer; min-width: 140px; font-size: 1.1rem;">🇺🇸 English</button>
+          </div>
+        </div>
+      </div>
+      <div id="videoContainer" style="position: relative; max-width: 90vw; width: 900px; margin: 0 auto; display: none; text-align: center;">
+        <button id="closeVideoContainer" style="position: absolute; top: 0.75rem; right: 0.75rem; z-index: 1; border: none; background: rgba(255,255,255,0.9); color: #1e88e5; border-radius: 50%; width: 2.5rem; height: 2.5rem; font-size: 1.2rem; cursor: pointer;">✕</button>
       <iframe id="videoIframe" src="https://player.vimeo.com/video/1216499641?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" style="width: 90%; height: auto; aspect-ratio: 16 / 9; max-height: 90vh;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="Gabi turns 18"></iframe>
     </div>
   </div>
@@ -70,9 +81,10 @@
     const closeDrawingOverlay = document.getElementById('closeDrawingOverlay');
     const prevDrawing = document.getElementById('prevDrawing');
     const nextDrawing = document.getElementById('nextDrawing');
-    const leftImage = document.getElementById('leftImage');
     const centerImage = document.getElementById('centerImage');
-    const rightImage = document.getElementById('rightImage');
+    const videoOptionsOverlay = document.getElementById('videoOptionsOverlay');
+    const videoLanguageButtons = Array.from(document.querySelectorAll('.videoLanguageButton'));
+    const closeVideoContainer = document.getElementById('closeVideoContainer');
 
     const drawings = [
       'drawings/2012 faces.JPG',
@@ -94,21 +106,41 @@
       centerImage.src = drawings[currentIndex];
     }
 
-    button.addEventListener('click', async () => {
-      const url = new URL(iframe.src);
-      url.searchParams.set('autoplay', '1');
-      iframe.src = url.toString();
-      container.style.display = 'block';
-      button.style.display = 'none';
+    const playVideoButton = button;
+    playVideoButton.addEventListener('click', () => {
+      videoOptionsOverlay.style.display = 'flex';
+    });
 
-      try {
-        if (container.requestFullscreen) {
-          await container.requestFullscreen();
-        } else if (iframe.requestFullscreen) {
-          await iframe.requestFullscreen();
+    videoLanguageButtons.forEach((languageButton) => {
+      languageButton.addEventListener('click', async () => {
+        const videoSrc = languageButton.getAttribute('data-src');
+        iframe.src = `${videoSrc}?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1`;
+        videoOptionsOverlay.style.display = 'none';
+        container.style.display = 'block';
+        playVideoButton.style.display = 'none';
+
+        try {
+          if (container.requestFullscreen) {
+            await container.requestFullscreen();
+          } else if (iframe.requestFullscreen) {
+            await iframe.requestFullscreen();
+          }
+        } catch (error) {
+          console.warn('Fullscreen request failed:', error);
         }
-      } catch (error) {
-        console.warn('Fullscreen request failed:', error);
+      });
+    });
+
+    closeVideoContainer.addEventListener('click', async () => {
+      container.style.display = 'none';
+      playVideoButton.style.display = 'inline-flex';
+      iframe.src = 'about:blank';
+      if (document.fullscreenElement) {
+        try {
+          await document.exitFullscreen();
+        } catch (error) {
+          console.warn('Failed to exit fullscreen:', error);
+        }
       }
     });
 
@@ -137,6 +169,12 @@
 
     closeDrawingOverlay.addEventListener('click', () => {
       drawingOverlay.style.display = 'none';
+    });
+
+    videoOptionsOverlay.addEventListener('click', (event) => {
+      if (event.target === videoOptionsOverlay) {
+        videoOptionsOverlay.style.display = 'none';
+      }
     });
 
     nicknameOverlay.addEventListener('click', (event) => {

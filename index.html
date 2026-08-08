@@ -9,6 +9,7 @@
     html, body {
       height: 100%;
       margin: 0;
+      overflow-x: hidden;
     }
     body {
       display: flex;
@@ -18,10 +19,119 @@
       font-family: system-ui, sans-serif;
       background: #f8f8f8;
     }
+    #backgroundWrapper {
+      width: 100%;
+      min-height: 100vh;
+    }
+    .languageButton {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: none;
+      text-align: left;
+      box-sizing: border-box;
+    }
+    .languageButton img {
+      width: 1.8rem;
+      height: auto;
+      display: block;
+    }
+    #buttonGroup {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+      box-sizing: border-box;
+      max-width: 44rem;
+      width: 100%;
+    }
+    #buttonGroup button {
+      min-width: 12rem;
+      max-width: 18rem;
+      width: auto;
+      box-sizing: border-box;
+    }
+    #languageSelectOverlay > div,
+    #drawingOverlay > div,
+    #nicknameOverlay > div {
+      width: min(36rem, 100%);
+      max-width: 100%;
+      box-sizing: border-box;
+      margin: 0 0.5rem;
+    }
+    #videoContainer {
+      position: relative;
+      max-width: 100%;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1rem;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    #videoContainer iframe {
+      width: 100%;
+      max-width: 100%;
+    }
+    #backgroundWrapper {
+      background-image: url('gabivolution.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    @media (max-width: 640px) {
+      #backgroundWrapper {
+        background-image: url('gabivolution_vertical.png');
+      }
+      #languageSelectOverlay {
+        padding: 0.75rem;
+      }
+      #languageSelectOverlay > div {
+        width: calc(100% - 1rem);
+        padding: 1.25rem;
+      }
+      .languageButton {
+        font-size: 1.05rem;
+        padding: 1.1rem 1rem;
+        justify-content: flex-start;
+      }
+      .languageButton img {
+        width: 1.6rem;
+      }
+      #buttonGroup {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+      }
+      #buttonGroup button {
+        max-width: 100%;
+        min-width: auto;
+      }
+      #drawingOverlay > div,
+      #nicknameOverlay > div {
+        width: calc(100% - 1rem);
+        padding: 1.25rem;
+      }
+      #drawingOverlay > div {
+        width: calc(100% - 1rem);
+      }
+      #closeVideoContainer {
+        top: 0.5rem;
+        right: 0.5rem;
+      }
+      #languageSelectOverlay > div h2,
+      #nicknameOverlay h2,
+      #drawingOverlay h2 {
+        font-size: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div id="backgroundWrapper" style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; background-image: url('gabivolution.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+  <div id="backgroundWrapper" style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center;">
     <div style="width: 100%;">
       <h1><img src="gabi18animated.svg" alt="gabi18animated" style="width: auto; height: auto; display: block; margin: 0 auto; transform: scale(2); transform-origin: center;"></h1>
       <div id="languageSelectOverlay" style="position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10001; display: flex; align-items: center; justify-content: center; padding: 2rem;">
@@ -158,7 +268,7 @@
 
     closeVideoContainer.addEventListener('click', async () => {
       container.style.display = 'none';
-      playVideoButton.style.display = 'inline-flex';
+      playVideoButton.style.display = '';
       iframe.src = 'about:blank';
       if (document.fullscreenElement) {
         try {

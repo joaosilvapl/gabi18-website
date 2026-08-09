@@ -163,10 +163,10 @@
         <button id="playVideoButton" style="padding: 0.9rem 1.2rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 0.75rem; font-weight: 600; cursor: pointer; min-width: 120px;">Play video</button>
       </div>
       <div id="nicknameOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center;">
-        <div style="display: inline-block; max-width: calc(100vw - 2rem); min-width: 18rem; background: white; border-radius: 1rem; padding: 2rem; position: relative; text-align: left; color: #111; box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
+        <div style="display: inline-block; width: min(60vw, 36rem); max-width: calc(100vw - 2rem); min-width: 18rem; background: white; border-radius: 1rem; padding: 2rem; position: relative; text-align: center; color: #111; box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
           <button id="closeNicknameOverlay" style="position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: #555;">✕</button>
           <h2 style="margin-top: 0; color: #1e88e5;">Nickname history</h2>
-          <ul style="margin: 1rem 0 0; padding-left: 1.3rem; line-height: 1.8;">
+          <ul style="margin: 1rem 0 0; padding-left: 0; line-height: 1.8; list-style: none; text-align: center;">
             <li>Gabrysia</li>
             <li>Żaba</li>
             <li>Kika</li>
@@ -178,7 +178,7 @@
         </div>
       </div>
       <div id="drawingOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9998; align-items: center; justify-content: center;">
-        <div style="width: 70vw; max-width: calc(100vw - 2rem); background: white; border-radius: 1rem; padding: 1.5rem; position: relative; color: #111; box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
+        <div style="width: min(60vw, 65rem); max-width: calc(100vw - 2rem); background: white; border-radius: 1rem; padding: 1.5rem; position: relative; color: #111; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
           <button id="closeDrawingOverlay" style="position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: #555;">✕</button>
           <h2 style="margin-top: 0; color: #1e88e5;">Drawing history</h2>
           <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">

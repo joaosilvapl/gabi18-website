@@ -116,11 +116,23 @@
       }
       #drawingOverlay > div,
       #nicknameOverlay > div {
-        width: calc(100% - 1rem);
+        width: 95vw;
         padding: 1.25rem;
       }
       #drawingOverlay > div {
-        width: calc(100% - 1rem);
+        width: 95vw;
+      }
+      #drawingCarousel {
+        width: 100%;
+      }
+      #drawingControls {
+        justify-content: center;
+        gap: 0.75rem;
+      }
+      #drawingControls button {
+        width: 2.2rem;
+        height: 2.2rem;
+        font-size: 1.2rem;
       }
       #closeVideoContainer {
         top: 0.5rem;
@@ -130,6 +142,40 @@
       #nicknameOverlay h2,
       #drawingOverlay h2 {
         font-size: 1.5rem;
+      }
+      #drawingOverlay > div {
+        width: calc(100% - 1rem);
+        padding: 1.25rem;
+      }
+      #drawingCarousel {
+        flex-direction: column;
+      }
+      #drawingPreview {
+        width: 100%;
+      }
+      #drawingPreview img {
+        width: 100%;
+        max-height: 65vh;
+      }
+      #drawingCarousel button {
+        width: 3rem;
+        height: 3rem;
+      }
+      #prevDrawing,
+      #nextDrawing {
+        order: 3;
+      }
+      #drawingPreview {
+        order: 2;
+      }
+      #drawingLabel {
+        order: 2;
+      }
+      #drawingCarousel {
+        align-items: center;
+      }
+      #drawingCarousel button {
+        margin-top: 0.5rem;
       }
     }
   </style>
@@ -178,16 +224,18 @@
         </div>
       </div>
       <div id="drawingOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9998; align-items: center; justify-content: center;">
-        <div style="width: min(60vw, 65rem); max-width: calc(100vw - 2rem); background: white; border-radius: 1rem; padding: 1.5rem; position: relative; color: #111; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
+        <div style="width: min(95vw, 65rem); max-width: calc(100vw - 2rem); background: white; border-radius: 1rem; padding: 1.5rem; position: relative; color: #111; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
           <button id="closeDrawingOverlay" style="position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: #555;">✕</button>
           <h2 style="margin-top: 0; color: #1e88e5;">Drawing history</h2>
-          <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
-            <button id="prevDrawing" style="width: 2.75rem; min-width: 2.75rem; height: 2.75rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 50%; font-size: 1.5rem; cursor: pointer;">‹</button>
-            <div style="display: flex; flex-direction: column; align-items: center; width: 80%; gap: 0.75rem;">
+          <div id="drawingCarousel" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+            <div id="drawingPreview" style="display: flex; flex-direction: column; align-items: center; width: 100%; gap: 0.75rem;">
               <img id="centerImage" src="" alt="Current drawing" style="width: 100%; max-height: 70vh; object-fit: contain; border-radius: 1rem; border: 2px solid #1e88e5;">
               <div id="drawingLabel" style="font-weight: 700; color: #1e88e5;">Year</div>
             </div>
-            <button id="nextDrawing" style="width: 2.75rem; min-width: 2.75rem; height: 2.75rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 50%; font-size: 1.5rem; cursor: pointer;">›</button>
+            <div id="drawingControls" style="display: flex; align-items: center; justify-content: center; gap: 1rem; width: 100%;">
+              <button id="prevDrawing" style="width: 2.4rem; min-width: 2.4rem; height: 2.4rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 50%; font-size: 1.4rem; cursor: pointer;">‹</button>
+              <button id="nextDrawing" style="width: 2.4rem; min-width: 2.4rem; height: 2.4rem; border: 2px solid #1e88e5; background: white; color: #1e88e5; border-radius: 50%; font-size: 1.4rem; cursor: pointer;">›</button>
+            </div>
           </div>
         </div>
       </div>
